@@ -80,7 +80,6 @@ module.exports = function(grunt) {
     // Task to minify modules/css; it should run only after files were
     // copied over to the 'dist' folder
     requirejs: {
-      waitSeconds: 0,
       baseUrl: 'dist/js', // this is needed just for the 'stupid' list task
       release_individual: {
         options: {
@@ -250,7 +249,7 @@ module.exports = function(grunt) {
     // only for the express task (our webserver)
     env: {
       options: {
-        SOLR_ENDPOINT: '<%= local.solr_endpoint || "http://localhost:9000/solr/select" %>',
+        SOLR_ENDPOINT: '<%= local.solr_endpoint || "http://localhost:8983/solr/select" %>',
         API_ENDPOINT: '<%= local.api_endpoint || "http://localhost:5000/api/1" %>',
         ORCID_OAUTH_CLIENT_ID: '<%= local.orcid_oauth_cliend_id || "" %>',
         ORCID_OAUTH_CLIENT_SECRET:'<%= local.orcid_oauth_client_secret || "" %>',
@@ -324,6 +323,11 @@ module.exports = function(grunt) {
       styles: {
         files: ['./src/styles/sass/ads-sass/*.scss'], // which files to watch
         tasks: ['sass', 'autoprefixer', 'express:dev', 'watch:styles'],
+        options: {
+          livereload: {
+            port : 35279
+          }
+        }
       }
     },
 
@@ -647,7 +651,7 @@ module.exports = function(grunt) {
             "mixins/discovery_bootstrap.js": 1,
             "widgets/navbar/widget.js": 53,
             "widgets/success/view.js": 60,
-            "components/library_controller.js" : 74,
+            "components/library_controller.js" : 75,
             "widgets/wordcloud/widget.js": 78,
             "components/analytics.js": 71,
             "wraps/landing_page_manager/landing_page_manager" : 48,

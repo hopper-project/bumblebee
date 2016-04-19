@@ -15,7 +15,10 @@ define([
     'js/mixins/papers_utils',
     'js/modules/orcid/extension',
     'js/mixins/dependon',
-    'analytics'
+    'analytics',
+    'js/components/api_feedback', 
+    'js/components/api_request', 
+    'js/components/api_targets'
   ],
 
   function (
@@ -29,7 +32,10 @@ define([
     PapersUtilsMixin,
     OrcidExtension,
     Dependon,
-    analytics
+    analytics,
+    ApiFeedback,
+    ApiRequest,
+    ApiTargets
 
     ) {
 
@@ -123,6 +129,14 @@ define([
           pubsub.publish(pubsub.BULK_PAPER_SELECTION, bibs);
         }
       },
+
+      composeRequest: function (apiQuery) {
+        return new ApiRequest({
+          target: 'http://localhost:5000/query',
+          query: apiQuery
+        });
+      },
+      
 
       dispatchRequest: function(apiQuery) {
 
